@@ -1,0 +1,36 @@
+[package]
+authors = ["Siwi LiZhao <siwilizhao@gmail.com>"]
+autoexamples = true
+categories = ["web-programming::http-server"]
+description = """
+A lightweight web framework
+"""
+documentation = "https://docs.rs/mangrove/"
+edition = "2018"
+homepage = "https://github.com/mangrove-rs/mangrove"
+keywords = ["mangrove", "web", "framework", "server"]
+license = "Apache-2.0"
+name = "mangrove"
+readme = "./README.md"
+repository = "https://github.com/mangrove-rs/mangrove"
+version = "0.0.1"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0"
+async-trait = "0.1.50"
+bytes = "1.0"
+headers = "0.3"
+hyper = {version = "0.14", features = ["full"]}
+log = "0.4"
+mime = "0.3"
+route-recognizer = "0.3"
+serde = {version = "1.0", features = ["derive"]}
+serde_json = "1.0"
+serde_qs = "0.8"
+serde_urlencoded = "0.7"
+thiserror = "1.0"
+[dev-dependencies]
+pretty_env_logger = "0.4.0"
+tokio = {version = "1.5", features = ["full"]}
+tokio-stream = {version = "0.1", features = ["net"]}
