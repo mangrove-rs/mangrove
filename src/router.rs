@@ -20,6 +20,7 @@ async fn default_handler(_req: Request) -> AnyResult<Response> {
   ))
 }
 
+
 pub struct Router {
   pub middlewares: Vec<Arc<dyn Middleware>>,
   pub not_found_handler: Box<DynEndpoint>,

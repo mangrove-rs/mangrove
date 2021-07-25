@@ -1,5 +1,6 @@
 pub mod endpoint;
 pub mod error;
+pub mod fs;
 pub mod middleware;
 pub mod next;
 pub mod request;

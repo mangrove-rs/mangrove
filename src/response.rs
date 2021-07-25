@@ -13,29 +13,53 @@ impl Response {
     self.inner.status()
   }
 
-  pub fn response<T: Serialize + Send>(val: T) -> Self {
-    hyper::http::Response::builder()
-      .header(
-        hyper::header::CONTENT_TYPE,
-        mime::APPLICATION_JSON.to_string(),
-      )
-      .status(200)
-      .body(hyper::Body::from(serde_json::to_string(&val).unwrap()))
-      .unwrap()
-      .into()
-  }
-
   pub fn json<T: Serialize + Send>(val: T) -> Self {
     hyper::http::Response::builder()
       .header(
         hyper::header::CONTENT_TYPE,
         mime::APPLICATION_JSON.to_string(),
       )
-      .status(200)
+      .status(StatusCode::OK)
       .body(hyper::Body::from(serde_json::to_string(&val).unwrap()))
       .unwrap()
       .into()
   }
+  
+  pub fn html(val: String) -> Self {
+    hyper::http::Response::builder()
+      .header(
+        hyper::header::CONTENT_TYPE,
+        mime::HTML.to_string()
+      )
+      .status(StatusCode::OK)
+      .body(hyper::Body::from(val))
+      .unwrap()
+      .into()
+  }
+  pub fn file(val: String, content_type: String) -> Self {
+    hyper::http::Response::builder()
+      .header(
+        hyper::header::CONTENT_TYPE,
+        content_type
+      )
+      .status(StatusCode::OK)
+      .body(hyper::Body::from(val))
+      .unwrap()
+      .into()
+  }
+
+  pub fn download(val: String) -> Self {
+    hyper::http::Response::builder()
+      .header(
+        hyper::header::CONTENT_TYPE,
+        mime::HTML.to_string()
+      )
+      .status(StatusCode::OK)
+      .body(hyper::Body::from(val))
+      .unwrap()
+      .into()
+  }
+
   pub fn with_status(status: hyper::StatusCode, val: String) -> Self {
     hyper::http::Response::builder()
       .header(
