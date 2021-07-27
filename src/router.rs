@@ -6,11 +6,11 @@ use super::Response;
 use super::HyperRequest;
 use super::Endpoint;
 use super::DynEndpoint;
-use log::info;
 use route_recognizer::Params;
 use std::net::SocketAddr;
 use std::sync::Arc;
 use std::collections::HashMap;
+use super::fs::ServerFile;
 // Router
 
 async fn default_handler(_req: Request) -> AnyResult<Response> {
@@ -106,6 +106,10 @@ impl Router {
     self.at(hyper::Method::CONNECT, route, dest);
   }
 
+  pub fn statics(&mut self, route: &str, path: &str) {
+    self.at(hyper::Method::GET, route, ServerFile::new(path.to_string()))
+  }
+
   pub async fn dispatch(
     &self,
     req: HyperRequest,
@@ -134,6 +138,7 @@ impl Router {
     };
     next.run(request).await
   }
+
 }
 
 impl std::fmt::Debug for Router {

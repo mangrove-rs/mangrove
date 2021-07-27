@@ -14,7 +14,7 @@ async fn main() -> AnyResult<()> {
   router.get("/", |_| async { Ok("Hello") });
   router.get("/hello", controller::hello);
   router.get("/file", controller::file);
-  router.get("/static/:file", controller::statics);
+  router.statics("/statics/:file", "examples");
   info!("router {:?}", router);
 
   let server = Server::new(router);
@@ -26,7 +26,6 @@ async fn main() -> AnyResult<()> {
 
 mod controller {
   use std::ffi::OsStr;
-  use std::fmt::format;
   use std::path::Path;
 
   use mangrove::AnyResult;
